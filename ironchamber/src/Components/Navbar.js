@@ -121,7 +121,7 @@ const Navbar = (props) => {
                             </div>
                         </li>
                         <li style={{ marginLeft: "30px", fontSize: "30px" }}>
-                            <img src='https://randomuser.me/api/portraits/men/62.jpg' alt="User Avatar" />
+                            <img src='https://www.postendekker.nl/wp-content/uploads/2021/10/dummy-profile.jpg' alt="User Avatar" />
                         </li>
                     </ul>
                 </nav>

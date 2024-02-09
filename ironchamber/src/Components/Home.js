@@ -9,7 +9,7 @@ const Home = () => {
             <div className='home-conatiner' style={{ margin: "100px 0" }}>
                 <div className='head-container'>
                     <p className='txt-1'>
-                        <b style={{ color: "#FF0000" }}>Unlock Your Multiverse:</b>
+                        <b style={{ color: "#FF0000", fontSize: "60px", fontWeight: "800" }}>Unlock Your Multiverse:</b>
                         <br />
                         A Secure Journey Across Dimensions
                     </p>
