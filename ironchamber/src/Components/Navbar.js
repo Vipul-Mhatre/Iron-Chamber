@@ -109,7 +109,7 @@ const Navbar = (props) => {
                         </li>
                         <li style={{ color: "white", fontSize: "30px" }}>|</li>
                         <li>
-                            <div className="search-box">
+                            <div className="search-box" style={{ zIndex: '-1' }}>
                                 <input type="text" placeholder="Type to search.." />
                                 <div className="search-icon">
                                     <i className="fa fa-search"></i>
