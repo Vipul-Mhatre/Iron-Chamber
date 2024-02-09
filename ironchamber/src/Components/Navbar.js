@@ -120,8 +120,14 @@ const Navbar = (props) => {
                                 <div className="search-data"></div>
                             </div>
                         </li>
-                        <li style={{ marginLeft: "30px", fontSize: "30px" }}>
+                        <li className='user'>
                             <img src='https://www.postendekker.nl/wp-content/uploads/2021/10/dummy-profile.jpg' alt="User Avatar" />
+                            <span>
+                                <ul className='user-list'>
+                                    <li><Link to='/dashboard'>Dashboard</Link></li>
+                                    <li><Link to='/logout'>Logout</Link></li>
+                                </ul>
+                            </span>
                         </li>
                     </ul>
                 </nav>
@@ -142,6 +148,52 @@ body {
     background-color: #74EBD5;
     background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
 }
+
+.user-list {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.8);
+    top:170px;
+    border: none;
+    border-radius: 10px;
+    right: 20px;
+    opacity: 0;  /* Start with opacity set to 0 */
+    animation: fadeInOut 0.3s ease-in-out;  /* Use keyframe animation */
+}
+
+.user-list::before {
+    content: "";
+    position: absolute;
+    top: -28.5px; /* Adjust the distance from the top of the dropdown */
+    left: 48%; /* Center the arrow horizontally */
+    margin-left: -45px; /* Half of the arrow width */
+    border: 15px solid rgba(255, 255, 255, 0.8); /* Adjust the size of the arrow */
+    outline:none;
+    border-style: solid;
+    border-color: transparent transparent rgba(255, 255, 255, 0.8) transparent;
+}
+
+.user:hover .user-list,
+.user:focus .user-list,
+.user-list:hover,
+.user-list:focus {
+    display: flex;
+    opacity: 1;  /* Set opacity to 1 on hover or focus */
+}
+
+@keyframes fadeInOut {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 
 .select-menu {
     max-width: 330px;
@@ -247,14 +299,6 @@ body {
         transform: translate3d(0, 20px, 0);
         opacity: 0;
     }
-}
-
-html,
-body {
-    display: grid;
-    height: 100%;
-    place-items: center;
-    background: #664AFF;
 }
 
 ::selection {
@@ -389,6 +433,7 @@ body {
                     border:none;
                     border-radius:50%;
                     width:50px;
+                    cursor:pointer;
                 }
                 `}
             </style>

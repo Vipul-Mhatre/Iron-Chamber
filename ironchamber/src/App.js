@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Files from "./Components/Files";
 import Messages from "./Components/Messages";
+import Upload from "./Components/Upload";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/files" element={<Files />} />
         <Route exact path="/messages" element={<Messages />} />
+        <Route exact path="/upload" element={<Upload />} />
       </Routes>
     </>
   );

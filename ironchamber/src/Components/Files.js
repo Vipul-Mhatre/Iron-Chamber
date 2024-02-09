@@ -1,8 +1,13 @@
 import React from 'react';
 import Navbar from './Navbar';
 import homeImg from '../assets/Files.png';
+import { useNavigate } from 'react-router-dom';
 
 const Files = () => {
+    const navigate = useNavigate();
+    const toUpload = () => {
+        navigate( '/upload' );
+    }
     return (
         <>
             <Navbar class="files" />
@@ -20,7 +25,7 @@ const Files = () => {
                         Our hierarchical system ensures seamless organization and navigation.
                         Support for various file formats guarantees a boundless multiverse journeys.
                     </p>
-                    <button>Explore More</button>
+                    <button onClick={toUpload}>Explore More</button>
                 </div>
                 <style>
                     {`
