@@ -1,3 +1,15 @@
+/* body {
+  background-image: url('./assets/Home.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+*,
+body {
+  font-family: 'Montserrat', sans-serif;
+  overflow: none;
+}
 .App {
   text-align: center;
 }
@@ -36,3 +48,4 @@
     transform: rotate(360deg);
   }
 }
+
