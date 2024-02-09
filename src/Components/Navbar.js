@@ -44,23 +44,38 @@ const Navbar = (props) => {
         };
     }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
-    const optionMenu = document.querySelector(".select-menu"),
-        selectBtn = optionMenu.querySelector(".select-btn"),
-        options = optionMenu.querySelectorAll(".option"),
-        sBtn_text = optionMenu.querySelector(".sBtn-text");
+    useEffect(() => {
+        const optionMenu = document.querySelector(".select-menu");
+        const selectBtn = optionMenu.querySelector(".select-btn");
+        const options = optionMenu.querySelectorAll(".option");
+        const sBtn_text = optionMenu.querySelector(".sBtn-text");
 
-    selectBtn.addEventListener("click", () =>
-        optionMenu.classList.toggle("active"));
+        const handleSelectBtnClick = () => {
+            optionMenu.classList.toggle("active");
+        };
 
-
-    options.forEach(option => {
-        option.addEventListener("click", () => {
+        const handleOptionClick = (option) => {
             let selectedOption = option.querySelector(".option-text").innerText;
             sBtn_text.innerText = selectedOption;
 
             optionMenu.classList.remove("active");
+        };
+
+        selectBtn.addEventListener("click", handleSelectBtnClick);
+
+        options.forEach(option => {
+            option.addEventListener("click", () => handleOptionClick(option));
         });
-    });
+
+        // Cleanup event listeners when the component unmounts
+        return () => {
+            selectBtn.removeEventListener("click", handleSelectBtnClick);
+            options.forEach(option => {
+                option.removeEventListener("click", () => handleOptionClick(option));
+            });
+        };
+    }, []); // Empty dependency array ensures this effect runs once when the component mounts
+
     return (
         <>
             <div className='nav-container'>
@@ -70,44 +85,44 @@ const Navbar = (props) => {
                         <li className='files'><Link to='/files'>FILES</Link></li>
                         <li className='messages'><Link to='/messages'>MESSAGES</Link></li>
                         <li className='language'>
-                            <div class="select-menu active">
-                                <div class="select-btn">
-                                    <span class="sBtn-text">Select Language</span>
-                                    <i class="bx bx-chevron-down"></i>
+                            <div className="select-menu">
+                                <div className="select-btn">
+                                    <span className="sBtn-text">Select Language</span>
+                                    <i className="bx bx-chevron-down"></i>
                                 </div>
 
-                                <ul class="options">
-                                    <li class="option">
-                                        <span class="option-text">English</span>
+                                <ul className="options">
+                                    <li className="option">
+                                        <span className="option-text">English</span>
                                     </li>
-                                    <li class="option">
-                                        <span class="option-text">Hindi</span>
+                                    <li className="option">
+                                        <span className="option-text">Hindi</span>
                                     </li>
-                                    <li class="option">
-                                        <span class="option-text">Marathi</span>
+                                    <li className="option">
+                                        <span className="option-text">Marathi</span>
                                     </li>
-                                    <li class="option">
-                                        <span class="option-text">Gujarati</span>
+                                    <li className="option">
+                                        <span className="option-text">Gujarati</span>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li style={{ color: "white", fontSize: "30px" }}>|</li>
-                        {/* <li><i style={{ color: "white", fontSize: "30px" }} className="fa fa-search"></i></li> */}
                         <li>
-                            <div class="search-box">
+                            <div className="search-box">
                                 <input type="text" placeholder="Type to search.." />
-                                <div class="search-icon">
-                                    <i class="fa fa-search"></i>
+                                <div className="search-icon">
+                                    <i className="fa fa-search"></i>
                                 </div>
-                                <div class="cancel-icon">
-                                    <i class="fa fa-times"></i>
+                                <div className="cancel-icon">
+                                    <i className="fa fa-times"></i>
                                 </div>
-                                <div class="search-data">
-                                </div>
+                                <div className="search-data"></div>
                             </div>
                         </li>
-                        <li style={{ marginLeft: "30px", fontSize: "30px" }}><img src='https://randomuser.me/api/portraits/men/62.jpg' /></li>
+                        <li style={{ marginLeft: "30px", fontSize: "30px" }}>
+                            <img src='https://randomuser.me/api/portraits/men/62.jpg' alt="User Avatar" />
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -378,9 +393,7 @@ body {
                 `}
             </style>
         </>
-    )
+    );
 }
 
-export default Navbar
-
-// https://gosnippets.com/snippets/custom-dropdown-select-menu  
+export default Navbar;
