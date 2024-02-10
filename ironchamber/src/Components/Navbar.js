@@ -146,6 +146,7 @@ body {
     position:fixed;
     top:50px;
     left:45px;
+    color: red;
 }
 
 .user-list {

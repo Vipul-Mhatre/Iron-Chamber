@@ -2,8 +2,10 @@ import React from 'react';
 import Navbar from './Navbar';
 import homeImg from '../assets/Messages.png';
 import { useAuth } from '../store/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Messages = () => {
+    const navigate  = useNavigate();
     const { content } = useAuth();
 
     const heading = content[2] ? content[2].heading : '';
@@ -24,7 +26,7 @@ const Messages = () => {
                     <p className='txt-2'>
                         {contentText}
                     </p>
-                    <button>Explore More</button>
+                    <button onClick={()=>{navigate("/messageApp")}}>Explore More</button>
                 </div>
                 <style>
                     {`
