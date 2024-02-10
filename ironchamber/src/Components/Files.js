@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import homeImg from '../assets/Files.png';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../store/auth';
 
 const Files = () => {
     const navigate = useNavigate();
+    const { content } = useAuth();
 
     const toUpload = () => {
         navigate('/upload');
@@ -21,6 +23,10 @@ const Files = () => {
         // Cleanup function to clear the timeout in case the component unmounts
         return () => clearTimeout(loadingTimeout);
     }, []);
+
+    const heading = content[2] ? content[2].heading : '';
+    const title = content[2] ? content[2].title : '';
+    const contentText = content[2] ? content[2].content : '';
 
     return (
         <>
@@ -47,16 +53,14 @@ const Files = () => {
                 <div className='home-container' style={{ margin: "100px 0" }}>
                     <div className='head-container'>
                         <p className='txt-1'>
-                                <b style={{ color: "#FF0000", fontSize: "60px" }}>Organize Your Multiverse:</b>
+                                <b style={{ color: "#FF0000", fontSize: "60px" }}>{heading}:</b>
                                 <br />
-                                Decentralized File System
+                                {title}
                             </p>
                         </div>
                         <div className='text-container'>
                             <p className='txt-2'>
-                                Securely manage your files across dimensions.
-                                Our hierarchical system ensures seamless organization and navigation.
-                                Support for various file formats guarantees boundless multiverse journeys.
+                                {contentText}
                             </p>
                             <button onClick={toUpload}>Explore More</button>
                         </div>

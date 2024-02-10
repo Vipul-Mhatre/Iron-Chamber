@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import homeImg from '../assets/Home.png';
 import Navbar from './Navbar';
+import { useAuth } from '../store/auth';
 
 const Home = () => {
+    const { content } = useAuth();
+
+    // Log content to console for troubleshooting
+    console.log("Content:", content);
+
+    const heading = content[0] ? content[0].heading : '';
+    const title = content[0] ? content[0].title : '';
+    const contentText = content[0] ? content[0].content : '';
+
     const [isLoading, setIsLoading] = useState(true);
 
+    // Simulate loading delay (remove in a real-world scenario)
     useEffect(() => {
-        // Simulate loading delay (remove in a real-world scenario)
         const loadingTimeout = setTimeout(() => {
             setIsLoading(false);
         }, 2000);
@@ -33,76 +43,71 @@ const Home = () => {
                         backgroundSize: '30%', // Adjust the size as needed
                         backgroundPosition: 'center',
                         backgroundColor: 'black',
-                        backgroundRepeat:"no-repeat"
+                        backgroundRepeat: 'no-repeat',
                     }}
                 />
             ) : (
-                <div className='home-container' style={{ margin: "100px 0" }}>
+                    <div className='home-conatiner' style={{ margin: '100px 0' }}>
                     <div className='head-container'>
                         <p className='txt-1'>
-                            <b style={{ color: "#FF0000", fontSize: "60px", fontWeight: "800" }}>Unlock Your Multiverse:</b>
+                                <b style={{ color: '#FF0000', fontSize: '60px', fontWeight: '800' }}>{heading}:</b>
                             <br />
-                            A Secure Journey Across Dimensions
+                                {title}
                         </p>
                     </div>
                     <div className='text-container'>
-                        <p className='txt-2'>
-                            Embark on a secure and decentralized adventure through the Marvel multiverse with us.
-                            Join Spider-Man and Doctor Strange in navigating dimensions, securing data, and connecting across diverse backgrounds.
-                        </p>
+                            <p className='txt-2'>{contentText}</p>
                     </div>
                 </div>
             )}
             <style>
                 {`
-                    * {
-                        font-family: 'Montserrat', sans-serif;
-                    }
-                    body {
-                        background-image: url('${homeImg}');
-                        background-size: cover;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        overflow: hidden;
-                        margin: 0;
-                    }
-                    .home-container {
-                        display: flex;
-                        flex-direction: column;
-                        text-align: center;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .head-container {
-                        display: flex;
-                        justify-content: flex-end;
-                        align-items: center;
-                    }
-                    .txt-1 {
-                        color: white;
-                        text-align: center;
-                        font-size: 50px;
-                        font-weight: 800px;
-                        margin: 0 50px;
-                    }
-                    .text-container {
-                        display: flex;
-                        justify-content: flex-end;
-                        align-items: center;
-                        width: 50%;
-                        margin: 30px 0 0 600px;
-                    }
-                    .txt-2 {
-                        color: white;
-                        font-size: 36px;
-                        font-weight: 500;
-                        text-wrap: wrap;
-                        text-align: center;
-                    }
-                `}
+                *{
+                    font-family: 'Montserrat', sans-serif;
+                }
+          body {
+  background-image: url('${homeImg}');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  overflow:hidden;
+}
+.home-conatiner{
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+.head-container{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+.txt-1{
+    color:white;
+    text-align:center;
+    font-size:50px;
+    font-weight:800px;
+    margin:0 50px;
+}
+.text-container{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    width:50%;
+    margin: 30px 0 0 600px;
+}
+.txt-2{
+    color:white;
+    font-size:20px;
+    font-weight:500;
+    text-wrap:wrap;
+    text-align:center;
+}
+          `}
             </style>
         </>
-    )
-}
+    );
+};
 
 export default Home;

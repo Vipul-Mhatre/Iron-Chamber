@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../store/auth';
 
 const Navbar = (props) => {
+    const { setLanguage, language } = useAuth();
 
     useEffect(() => {
         const searchBox = document.querySelector(".search-box");
@@ -80,36 +82,24 @@ const Navbar = (props) => {
         <>
             <div className='nav-container'>
                 <nav className='my-nav'>
+                    <li className='logo'><Link to='/'>ironchamber</Link></li>
                     <ul>
                         <li className='home'><Link to='/'>HOME</Link></li>
                         <li className='files'><Link to='/files'>FILES</Link></li>
                         <li className='messages'><Link to='/messages'>MESSAGES</Link></li>
                         <li className='language'>
                             <div className="select-menu">
-                                <div className="select-btn">
-                                    <span className="sBtn-text">Select Language</span>
-                                    <i className="bx bx-chevron-down"></i>
-                                </div>
-
-                                <ul className="options">
-                                    <li className="option">
-                                        <span className="option-text">English</span>
-                                    </li>
-                                    <li className="option">
-                                        <span className="option-text">Hindi</span>
-                                    </li>
-                                    <li className="option">
-                                        <span className="option-text">Marathi</span>
-                                    </li>
-                                    <li className="option">
-                                        <span className="option-text">Gujarati</span>
-                                    </li>
-                                </ul>
+                                <select className="select-btn" value={language} onChange={(e) => { setLanguage(e.target.value) }}>
+                                    <option value="English">English</option>
+                                    <option value="Marathi">Marathi</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Gujarati">Gujarati</option>
+                                </select>
                             </div>
                         </li>
                         <li style={{ color: "white", fontSize: "30px" }}>|</li>
                         <li>
-                            <div className="search-box" style={{ zIndex: '-1' }}>
+                            <div className="search-box">
                                 <input type="text" placeholder="Type to search.." />
                                 <div className="search-icon">
                                     <i className="fa fa-search"></i>
@@ -135,6 +125,7 @@ const Navbar = (props) => {
             <style>
                 {`
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap');
                 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
 * {
@@ -149,6 +140,14 @@ body {
     background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
 }
 
+.logo a{
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing:2px;
+    position:fixed;
+    top:50px;
+    left:45px;
+}
+
 .user-list {
     display: none;
     justify-content: center;
@@ -156,25 +155,26 @@ body {
     flex-direction: column;
     text-align: center;
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.8);
-    top:170px;
+    background-color: #E60F0F;
+    top: 120px;
     border: none;
     border-radius: 10px;
     right: 20px;
-    opacity: 0;  /* Start with opacity set to 0 */
-    animation: fadeInOut 0.3s ease-in-out;  /* Use keyframe animation */
+    opacity: 0;
+    animation: fadeInOut 0.3s ease-in-out;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .user-list::before {
     content: "";
     position: absolute;
-    top: -28.5px; /* Adjust the distance from the top of the dropdown */
-    left: 48%; /* Center the arrow horizontally */
-    margin-left: -45px; /* Half of the arrow width */
-    border: 15px solid rgba(255, 255, 255, 0.8); /* Adjust the size of the arrow */
-    outline:none;
+    top: -28.5px;
+    left: 48%;
+    margin-left: -45px;
+    border: 15px solid #E60F0F;
+    outline: none;
     border-style: solid;
-    border-color: transparent transparent rgba(255, 255, 255, 0.8) transparent;
+    border-color: transparent transparent #E60F0F transparent;
 }
 
 .user:hover .user-list,
@@ -182,7 +182,7 @@ body {
 .user-list:hover,
 .user-list:focus {
     display: flex;
-    opacity: 1;  /* Set opacity to 1 on hover or focus */
+    opacity: 1;
 }
 
 @keyframes fadeInOut {
@@ -194,53 +194,50 @@ body {
     }
 }
 
-
 .select-menu {
-    max-width: 330px;
-    margin: 50px auto;
+    display: inline-block;
+    position: relative;
 }
 
 .select-menu .select-btn {
     display: flex;
-    height: 55px;
-    background: red;
-    color:#fff;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: 400;
-    border-radius: 8px;
     align-items: center;
+    padding: 10px;
+    background: #E60F0F;
+    color: #fff;
+    border-radius: 8px;
     cursor: pointer;
-    justify-content: space-between;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+.select-menu.active .select-btn {
+    background: #fff;
+    color: #333;
 }
 
 .select-menu .options {
+    display: none;
     position: absolute;
-    width: 330px;
-    overflow-y: auto;
-    max-height: 295px;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    background: #fff;
+    top: 100%;
+    left: 0;
+    width: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    animation-name: fadeInDown;
-    -webkit-animation-name: fadeInDown;
-    animation-duration: 0.35s;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 0.35s;
-    -webkit-animation-fill-mode: both;
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.select-menu.active .options {
+    display: block;
 }
 
 .select-menu .options .option {
-    display: flex;
-    height: 55px;
-    cursor: pointer;
-    padding: 0 16px;
-    border-radius: 8px;
-    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
     background: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
 .select-menu .options .option:hover {
@@ -248,62 +245,17 @@ body {
 }
 
 .select-menu .options .option i {
-    font-size: 25px;
-    margin-right: 12px;
-}
-
-.select-menu .options .option .option-text {
-    font-size: 18px;
-    color: #333;
+    margin-right: 8px;
 }
 
 .select-btn i {
-    font-size: 25px;
-    transition: 0.3s;
+    font-size: 20px;
+    margin-left: 5px;
+    transition: transform 0.3s;
 }
 
 .select-menu.active .select-btn i {
     transform: rotate(-180deg);
-}
-
-.select-menu.active .options {
-    display: block;
-    opacity: 0;
-    z-index: 10;
-    animation-name: fadeInUp;
-    -webkit-animation-name: fadeInUp;
-    animation-duration: 0.4s;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 0.4s;
-    -webkit-animation-fill-mode: both;
-}
-
-@keyframes fadeInUp {
-    from {
-        transform: translate3d(0, 30px, 0);
-    }
-
-    to {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translate3d(0, 20px, 0);
-        opacity: 0;
-    }
-}
-
-::selection {
-    color: #fff;
-    background: #664AFF;
 }
 
 .search-box {
@@ -347,7 +299,7 @@ body {
     transform: translateY(-50%);
     height: 60px;
     width: 60px;
-    background: red;
+    background: #E60F0F;
     border-radius: 50%;
     text-align: center;
     line-height: 60px;
@@ -365,7 +317,7 @@ body {
     width: 50px;
     font-size: 20px;
     background: white;
-    color: red;
+    color: #E60F0F;
     transform: translateY(-50%) rotate(360deg);
 }
 
@@ -397,44 +349,59 @@ body {
     display: none;
 }
 
-                a{
-                    font-size:25px;
-                    font-weight:600;
-                    color:white;
-                    text-decoration:none;
-                }
-                ul,li{
-                    list-style-type:none;
-                }
-                .nav-container{
-                    display:flex;
-                    justify-content:flex-end;
-                    align-items:center;
-                    margin: 20px 100px;
-                }
-                nav ul{
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                }
-                ul{
-                    width:max-content;
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                }
-                li{
-                    margin:20px;
-                }
-                .${props.class} a{
-                    color:#E60F0F;
-                }
-                li img{
-                    border:none;
-                    border-radius:50%;
-                    width:50px;
-                    cursor:pointer;
-                }
+a {
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px 100px;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    margin: 20px;
+}
+
+.${props.class} a {
+    color: #E60F0F;
+}
+
+li img {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    cursor: pointer;
+}
+
                 `}
             </style>
         </>
@@ -442,5 +409,3 @@ body {
 }
 
 export default Navbar;
-
-// https://gosnippets.com/snippets/custom-dropdown-select-menu
