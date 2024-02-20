@@ -19,6 +19,12 @@ Iron Chamber is a secure and decentralized web application designed to provide u
 - **Decentralized Storage:** IPFS, Pinata
 - **Translation:** Google Translate API
 - **Real-time Communication:** Socket.io
+  
+### UI of Web App:
+![Home](https://github.com/Star-Viper/TechSpark_Galactic/assets/125679638/1d842d70-39f8-4d65-888a-be3ab4bd1b2c)
+![Files](https://github.com/Star-Viper/TechSpark_Galactic/assets/125679638/2d419fa9-3997-462e-8e8d-ea1062e36e9b)
+![Messages](https://github.com/Star-Viper/TechSpark_Galactic/assets/125679638/a5e0f36a-b36f-4058-b126-04f961019e89)
+
 
 ### Contributors:
 
