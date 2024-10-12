@@ -32,4 +32,4 @@ Iron Chamber is a secure and decentralized web application designed to provide u
 - Ashish Maurya (https://github.com/Ashish48Maurya)
 - Divy Mav (https://github.com/divy-arun-mav)
 - Kaushal Jha (https://github.com/Kj1710)
-- Abhishek Pandey (https://github.com/Abhishe16)
+- Abhishek Pandey (https://github.com/Abhishek3102)
